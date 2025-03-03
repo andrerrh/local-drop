@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<script src="https://unpkg.com/htmx.org@2.0.4"></script>
+	<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+	<script src="../static/js/script.js" defer></script>
+	<script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/remove-me.js"></script>
+	<title>Local Drop</title>
+</head>
+
+<body class="pt-3">
+	<div id="alert" hx-ext="remove-me" class="absolute top-10 mx-auto w-full flex justify-center z-1000">
+	</div>
+	<img id="indicator" class="htmx-indicator absolute left-[50%] transform translate-x-[-50%]"
+		src="../static/images/spin-load.svg" />
+	<label class="w-80 ml-5 mb-1">
+		File name
+	</label>
+	<div class="w-[333px] ml-5 flex">
+		<form id="up-form" hx-target="#alert" hx-trigger="change from:#up-files" hx-encoding="multipart/form-data"
+			hx-post="/upload" hx-indicator="#indicator">
+			<input id="up-files" name="files" class="hidden" type="file" multiple />
+		</form>
+		<input class="
+				bg-white
+				border
+				border-2
+				rounded-md
+				w-full
+				pl-2
+				outline-none
+				" id="search-input" placeholder="Search file by name..." />
+		<button class="
+				bg-white
+				ml-5
+				border
+				border-2
+				rounded-md
+				p-3
+				py-2
+				cursor-pointer
+				hover:scale-110
+				transition
+				duration-150" id="up-btn"><img class="rotate-180 scale-130" src="../static/images/arrow-down.svg" /></button>
+	</div>
+	<div id="files" hx-swap="innerHTML" hx-trigger="load, htmx:afterRequest from:#up-form" hx-get="files/">
+		<!--Loads templates/files.html-->
+	</div>
+</body>
+
+</html>

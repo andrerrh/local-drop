@@ -1,0 +1,57 @@
+<!-- Tailwind loaded from index.html-->
+<div id="files-container" class="flex flex-row w-screen flex-wrap pt-3 pl-5 gap-3">
+	{{ range .}}
+	<div id="file-box-{{ .Id }}" class="
+		bg-white
+		transition-all
+		duration-150
+		flex
+		items-center
+		justify-between
+		border
+		rounded-md
+		min-w-80
+		w-fit
+		h-10
+		shadow-[#222222]
+		shadow-md
+		hover:shadow-lg
+		">
+		<span class="
+			transition
+			duration-150
+			z-10
+			ml-3
+			min-w-40
+			w-40
+			truncate
+			hover:w-auto
+			hover:overflow-visible
+			hover:pr-3
+			cursor-default
+			" id="file-name">
+			{{ .Name }}
+		</span>
+		<span class="mr-2 w-20 text-right">{{ .Size }} {{ .SizeT }}</span>
+		<span hx-target="#file-box-{{ .Id }}" hx-swap="delete" hx-delete="/delete?files={{ .Name }}" class="
+			transition
+			duration-150
+			mr-2
+			cursor-pointer
+			scale-60 hover:scale-66
+			">
+			<img src="../static/images/trash-can.png" alt="delete icon">
+		</span>
+		<span hx-get="/download/{{ .Name }}" hx-trigger="click"
+			hx-on::after-request="window.location.href = '/download/{{ .Name }}'" hx-swap="none"
+			hx-indicator="#indicator" class="
+			transition
+			duration-150 
+			mr-3 
+			cursor-pointer 
+			hover:scale-110">
+			<img src="../static/images/arrow-down.svg" alt="download arrow">
+		</span>
+	</div>
+	{{ end }}
+</div>
